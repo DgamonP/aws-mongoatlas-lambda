@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: atlas-aws-peering
+Transform:
+- AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 60
+Parameters:
+  MongoURI:
+    Type: String
+    Default: mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net/deltaDev
+  MongoDBName:
+    Type: String
+    Default: cluster-develop
+Resources:
+  getAllItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: A simple example includes a HTTP get method to get all items from
+        a DynamoDB table.
+      Handler: src/handlers/get-all-items.getAllItemsHandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      MemorySize: 128
+      Timeout: 100
+      VpcConfig:
+        SecurityGroupIds:
+        - sg-02eebdc3a0c632824
+        SubnetIds:
+        - subnet-0facc8f57120f6283
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AWSLambdaVPCAccessExecutionRole
+      Environment:
+        Variables:
+          MONGODB_URI:
+            Ref: MongoURI
+          MONGODB_NAME:
+            Ref: MongoDBName
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+      CodeUri: getAllItemsFunction
+    Metadata:
+      SamResourceId: getAllItemsFunction
+Outputs:
+  WebEndpoint:
+    Description: API Gateway endpoint URL for Prod stage
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/

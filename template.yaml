@@ -11,10 +11,11 @@ Globals:
 Parameters:
   MongoURI:
     Type: String
-    Default: mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net/deltaDev
+    Default: 'mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net'
+    #Default: 'mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
   MongoDBName:
     Type: String
-    Default: cluster-develop
+    Default: 'deltaDev'
 
 Resources:
   getAllItemsFunction:
@@ -45,7 +46,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /test/all
             Method: GET
             
 

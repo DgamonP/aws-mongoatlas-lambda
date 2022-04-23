@@ -8,10 +8,10 @@ Globals:
 Parameters:
   MongoURI:
     Type: String
-    Default: mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net/deltaDev
+    Default: mongodb+srv://dbDevelop:alfaRomeo#$%@cluster-develop.w45zq.mongodb.net
   MongoDBName:
     Type: String
-    Default: cluster-develop
+    Default: deltaDev
 Resources:
   getAllItemsFunction:
     Type: AWS::Serverless::Function
@@ -42,7 +42,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /test/all
             Method: GET
       CodeUri: getAllItemsFunction
     Metadata:
